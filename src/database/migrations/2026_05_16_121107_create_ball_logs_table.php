@@ -19,6 +19,12 @@ return new class extends Migration {
                 ->constrained()
                 ->nullOnDelete();
 
+
+            $table->foreignId('issue_id')   
+                ->nullable()
+                ->constrained()
+                ->nullOnDelete();
+
             $table->enum('action', [
                 'task_completed',
                 'early_bonus',
