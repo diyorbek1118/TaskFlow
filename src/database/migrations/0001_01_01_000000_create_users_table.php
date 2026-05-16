@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role',['admin','member'])->default('member');
-            $table->string('avater')->nullable();
+            $table->string('avatar')->nullable();
             $table->integer('ball')->default(0);
             $table->timestamp('last_seen_at')->nullable();
             $table->unsignedBigInteger('online_minutes')->default(0);
