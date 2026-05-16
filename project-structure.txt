@@ -1,0 +1,39 @@
+Auth:
+├── Register (admin yoki member)
+├── Login → Token
+├── Logout
+└── Me (profil + ball + online vaqt)
+
+Tasks:
+├── GET    /tasks          → member: o'ziniki, admin: hammasi
+├── POST   /tasks          → faqat admin
+├── PUT    /tasks/{id}     → admin
+├── DELETE /tasks/{id}     → admin
+├── PATCH  /tasks/{id}/assign    → admin: kimgadir biriktirish
+├── PATCH  /tasks/{id}/unassign  → admin: qaytarib olish
+├── PATCH  /tasks/{id}/progress  → member: % belgilash
+└── PATCH  /tasks/{id}/status    → member: status o'zgartirish
+
+Issues (Xatolar):
+├── GET    /tasks/{id}/issues        → ko'rish
+├── POST   /tasks/{id}/issues        → member: yaratish
+├── PATCH  /issues/{id}/resolve      → admin: yechildi
+└── POST   /issues/{id}/attachments  → screenshot yuklash
+
+Comments:
+├── GET    /tasks/{id}/comments   → ko'rish
+└── POST   /tasks/{id}/comments   → yozish
+
+Files:
+├── POST   /tasks/{id}/attachments    → admin fayl yuklash
+└── DELETE /attachments/{id}          → o'chirish
+
+Leaderboard:
+├── GET /leaderboard/daily    → kunlik
+├── GET /leaderboard/weekly   → haftalik
+└── GET /leaderboard/monthly  → oylik
+
+Stats (admin):
+├── GET /stats/overview    → umumiy
+├── GET /stats/users       → har user statistika
+└── GET /stats/tasks       → task statistika

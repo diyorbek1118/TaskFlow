@@ -28,47 +28,47 @@ help:
 
 # Start all containers
 up:
-	docker compose up -d
+	sudo docker compose up -d
 
 # Stop all containers
 down:
-	docker compose down
+	sudo docker compose down
 
 # Build and start containers
 build:
-	docker compose up -d --build
+	sudo docker compose up -d --build
 
 # Restart all containers
 restart:
-	docker compose restart
+	sudo docker compose restart
 
 # Show container logs
 logs:
-	docker compose logs -f
+	sudo docker compose logs -f
 
 # Access application shell
 shell:
-	docker compose exec app bash
+	sudo docker compose exec app bash
 
 # Access database shell
 db-shell:
-	docker compose exec mysql mysql -u${DB_USERNAME:-laravel} -p${DB_PASSWORD:-secret} ${DB_DATABASE:-laravel}
+	sudo docker compose exec mysql mysql -u${DB_USERNAME:-laravel} -p${DB_PASSWORD:-secret} ${DB_DATABASE:-laravel}
 
 # Access redis shell
 redis-shell:
-	docker compose exec redis redis-cli
+	sudo docker compose exec redis redis-cli
 
 # Install npm dependencies
 npm-install:
-	docker compose exec app npm install
+	sudo docker compose exec app npm install
 
 # Install composer dependencies
 composer-install:
-	docker compose exec app composer install
+	sudo docker compose exec app composer install
 
 # Run database migrations
 migrate:
-	docker compose exec app php artisan migrate
+	sudo docker compose exec app php artisan migrate
 
 # Run database seeders
 seed:
@@ -106,10 +106,10 @@ push:
 		echo "❌ Xato: Xabar bo'sh bo'lishi mumkin emas!"; \
 		exit 1; \
 	fi; \
-	git add .; \
-	git commit -m "$$msg"; \
-	git push origin main
-	@echo "✅ O'zgarishlar Git-ga muvaffaqiyatli yuborildi!"
+	git add -A; \
+	git commit -m "$$msg" || echo "⚠️ Commit qilinmadi (o'zgarish yo'q)"; \
+	git push origin main; \
+	echo "✅ O'zgarishlar Git-ga muvaffaqiyatli yuborildi!"
 
 # Oxirgi versiyani olish
 pull:
