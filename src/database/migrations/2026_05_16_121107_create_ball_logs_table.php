@@ -10,20 +10,10 @@ return new class extends Migration {
         Schema::create('ball_logs', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('task_id')->nullable()->constrained()->nullOnDelete();
 
-            $table->foreignId('task_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-
-
-            $table->foreignId('issue_id')   
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
+            $table->foreignId('issue_id')->nullable()->constrained()->nullOnDelete();
 
             $table->enum('action', [
                 'task_completed',
@@ -32,9 +22,7 @@ return new class extends Migration {
             ]);
 
             $table->integer('ball');
-
-            $table->timestamp('created_at')
-                ->useCurrent();
+            $table->timestamp('created_at')->useCurrent();
         });
     }
 

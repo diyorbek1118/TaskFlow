@@ -9,26 +9,17 @@ return new class extends Migration {
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('created_by')
-                ->constrained('users')
-                ->cascadeOnDelete();
-
-            $table->foreignId('assigned_to')
-                ->nullable()
-                ->constrained('users')
-                ->nullOnDelete();
-
+            $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('assigned_to')->nullable()->constrained('users')->nullOnDelete();
             $table->string('title');
             $table->text('description')->nullable();
-
             $table->enum('status', [
                 'todo',
                 'in_progress',
                 'review',
                 'done'
             ])->default('todo');
-
             $table->enum('priority', [
                 'low',
                 'medium',
@@ -36,15 +27,9 @@ return new class extends Migration {
                 'urgent'
             ])->default('medium');
 
-            $table->unsignedTinyInteger('progress')
-                ->default(0);
-
-            $table->timestamp('due_date')
-                ->nullable();
-
-            $table->timestamp('completed_at')
-                ->nullable();
-
+            $table->unsignedTinyInteger('progress')->default(0);
+            $table->timestamp('due_date')->nullable();
+            $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });
     }

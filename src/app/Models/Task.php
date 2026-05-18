@@ -30,6 +30,9 @@ class Task extends Model
         ];
     }
 
+    public function team(){
+        return $this->belongsTo(Team::class);
+    }
     public function creator(){
         return $this->belongsTo(User::class, 'created_by');
     }
