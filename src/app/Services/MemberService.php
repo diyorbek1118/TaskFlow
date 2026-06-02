@@ -11,7 +11,6 @@ class MemberService
         return User::where('team_id', $teamId)
             ->where('role', 'member')
             ->get();
-            
     }
 
     public function store(array $data, int $teamId): User
@@ -36,7 +35,8 @@ class MemberService
     {
         $member = User::where('team_id', $teamId)
             ->where('role', 'member')
-            ->find($memberId);
+            ->where('id', $memberId)
+            ->first();
 
         if (!$member)
             return null;

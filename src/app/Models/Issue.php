@@ -17,13 +17,20 @@ class Issue extends Model
         'description',
         'severity',
         'status',
+        'is_checked',
         'resolved_at',
+        'checked_at',
+        'checked_by',
+        'ball_awarded',
     ];
 
     protected function casts(): array
     {
         return [
             'resolved_at' => 'datetime',
+            'checked_at' => 'datetime',
+            'is_checked' => 'boolean',
+            'ball_awarded' => 'boolean',
         ];
     }
 
@@ -43,9 +50,48 @@ class Issue extends Model
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
+    public function checkedBy()
+    {
+        return $this->belongsTo(User::class, 'checked_by');
+    }
+
     public function attachments()
     {
         return $this->morphMany(Attachment::class, 'attachable');
     }
 
-}
+    // Scopes
+    public function scopeByStatus($query, $status)
+    {
+        return $query->where('status', $status);
+    }
+
+    public function scopeBySeverity($query, $severity)
+    {
+        return $query->where('severity', $severity);
+    }
+
+    public function scopeOpen($query)
+    {
+        return $query->where('status', 'open');
+    }
+
+    public function scopeInProgress($query)
+    {
+        return $query->where('status', 'in_progress');
+    }
+
+    public function scopeResolved($query)
+    {
+        return $query->where('status', 'resolved');
+    }
+
+    public function scopeChecked($query)
+    {
+        return $query->where('is_checked', true);
+    }
+
+    public function scopeNotChecked($query)
+    {
+        return $query->where('is_checked', false);
+    }
